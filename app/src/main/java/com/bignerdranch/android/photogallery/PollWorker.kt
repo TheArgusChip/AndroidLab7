@@ -39,8 +39,7 @@ class PollWorker(val context: Context, workerParams: WorkerParameters)
             val intent =
                 PhotoGalleryActivity.newIntent(context)
             val pendingIntent =
-                PendingIntent.getActivity(context, 0, intent,
-                    0)
+                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             val resources = context.resources
             val notification =
                 NotificationCompat
