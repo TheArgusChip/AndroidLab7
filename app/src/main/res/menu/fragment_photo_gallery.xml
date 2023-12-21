@@ -13,4 +13,14 @@
         android:id="@+id/menu_item_toggle_polling"
         android:title="@string/start_polling"
         app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/menu_item_database_photos"
+        android:title="@string/view_database_photos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_item_delete_database_photos"
+        android:title="@string/delete_photos_from_database"
+        app:showAsAction="never" />
 </menu>

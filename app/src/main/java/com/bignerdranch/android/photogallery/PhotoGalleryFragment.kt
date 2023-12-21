@@ -23,6 +23,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
+import android.widget.Toast
 
 private const val TAG = "PhotoGalleryFragment"
 private const val POLL_WORK = "POLL_WORK"
@@ -155,6 +156,15 @@ class PhotoGalleryFragment : Fragment() {
                 activity?.invalidateOptionsMenu()
                 return true
             }
+
+            R.id.menu_item_database_photos -> {
+                photoGalleryViewModel.showDatabaseGallery()
+                true
+            }
+            //R.id.menu_item_delete_database_photos -> {
+//
+  //          }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
