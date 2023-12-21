@@ -24,6 +24,9 @@ import androidx.work.WorkManager
 import com.squareup.picasso.Picasso
 import java.util.concurrent.TimeUnit
 import android.widget.Toast
+import android.content.Context
+import android.widget.TextView
+import java.util.UUID
 
 private const val TAG = "PhotoGalleryFragment"
 private const val POLL_WORK = "POLL_WORK"
@@ -31,7 +34,22 @@ private const val POLL_WORK = "POLL_WORK"
 class PhotoGalleryFragment : Fragment() {
     private lateinit var photoGalleryViewModel: PhotoGalleryViewModel
     private lateinit var photoRecyclerView: RecyclerView
+    private val galleryRepository = GalleryRepository.get()
 
+    interface Callbacks {
+        fun onPhotoSelect(photoId: String)
+    }
+    private var callbacks: Callbacks? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks?
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -161,12 +179,41 @@ class PhotoGalleryFragment : Fragment() {
                 photoGalleryViewModel.showDatabaseGallery()
                 true
             }
-            //R.id.menu_item_delete_database_photos -> {
-//
-  //          }
+            R.id.menu_item_delete_database_photos -> {
+                photoGalleryViewModel.deletephotos()
+                Toast.makeText(
+                    context,
+                    R.string.delete_photos_from_database_success,
+                    Toast.LENGTH_SHORT
+                ).show()
+                true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private inner class GalleryHolder(view: View)
+        : RecyclerView.ViewHolder(view), View.OnClickListener {
+        private lateinit var galleryItem: GalleryItem
+        private val titleTextView: TextView = itemView.findViewById(R.id.photo_title)
+        private val urlView: TextView = itemView.findViewById(R.id.photo_url)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        fun bind(galleryItem: GalleryItem) {
+            this.galleryItem = galleryItem
+            titleTextView.text = this.galleryItem.title
+            urlView.text = this.galleryItem.url
+        }
+
+        override fun onClick(v: View) {
+            val galleryItem = GalleryItem()
+            callbacks?.onPhotoSelect(galleryItem.id)
+        }
+
     }
     companion object {
         fun newInstance() = PhotoGalleryFragment()
