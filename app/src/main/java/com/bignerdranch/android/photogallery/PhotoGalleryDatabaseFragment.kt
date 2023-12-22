@@ -15,9 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 
-private const val TAG = "PhotoGalleryDatabaseFragment"
-private const val POLL_WORK = "POLL_WORK"
-
 class PhotoGalleryDatabaseFragment : Fragment() {
 
     private lateinit var photoGalleryViewModel: PhotoGalleryViewModel
