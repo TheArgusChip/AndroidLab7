@@ -8,6 +8,7 @@
     <string name="start_polling">Start polling</string>
     <string name="stop_polling">Stop polling</string>
     <string name="view_database_photos">Show database</string>
+    <string name="to_explorer">Show explorer</string>
     <string name="delete_photos_from_database">Delete photos</string>
     <string name="delete_photos_from_database_success">Photos deleted</string>
 </resources>

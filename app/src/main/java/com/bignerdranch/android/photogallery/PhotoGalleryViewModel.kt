@@ -4,13 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 
 
 class PhotoGalleryViewModel(private val app: Application) : AndroidViewModel(app) {
     private val galleryRepository = GalleryRepository.get()
     val galleryItemLiveData: LiveData<List<GalleryItem>>
+    val itemLiveData: LiveData<List<Item>> = galleryRepository.getPhotos()
     private val flickrFetchr = FlickrFetchr()
     private val mutableSearchTerm = MutableLiveData<String>()
     val searchTerm: String
@@ -38,7 +38,7 @@ class PhotoGalleryViewModel(private val app: Application) : AndroidViewModel(app
     fun deletephotos(){
         galleryRepository.deleteAllPhotos()
     }
-    fun addPhotoToDatabase(photo: GalleryItem) {
+    fun addPhoto(photo: GalleryItem) {
         galleryRepository.addPhoto(photo)
     }
 

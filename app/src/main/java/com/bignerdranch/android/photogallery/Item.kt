@@ -1,9 +1,11 @@
 package com.bignerdranch.android.photogallery
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-
-data class GalleryItem(
+@Entity(tableName = "gallery")
+data class Item(
     var title: String = "",
-    var id: String = "",
+    @PrimaryKey var id: String = "",
     @SerializedName("url_s") var url: String = ""
 )
